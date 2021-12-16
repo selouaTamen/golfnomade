@@ -1,11 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\InscriptionController;
-use App\Http\Controllers\ConnexionController;
-use App\Http\Controllers\ProduitsController;
-use App\Http\Controllers\ListegolffranceController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -18,23 +13,12 @@ use App\Http\Controllers\ListegolffranceController;
 |
 */
 
-Route::get('/users', function () {
+Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/listgolffrance', function () {
-    return view('listgolfrance');
-});
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
-
-Route::get('/inscriptions', [InscriptionController::class, 'index'])
-    ->name('inscription.index');
-
-Route::get('/connexion', [ConnexionController::class, 'index'])
-    ->name('connexion.index');
-
-Route::post('/produits', [ProduitsController::class, 'store'])
-    ->name('produits.store');
-
-Route::post('/listegolffrance', [ListegolffranceController::class, 'store'])
-    ->name('listegolffrance.store');
+require __DIR__.'/auth.php';
